@@ -22,12 +22,21 @@ app.get('/', function (req, res) {
 });
 
 //  Get  /todos
-app.get('/todos', function (rec, res) {
+app.get('/todos', function (req, res) {
 	res.json(todos);
 });
 
 //  GET /tods/:id
+app.get('/todos/:id', function (req, res) {
+	var todoId = parseInt(req.params.id, 10);
 
+	for (var i = 0; i < todos.length; i++) {
+		if (todos[i].id === todoId) {
+			res.json(todos[i]);
+		} 
+	}
+	res.status(404).send();
+});
 
 
 app.listen(PORT, function () {
