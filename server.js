@@ -3,7 +3,7 @@ var bodyParser = require('body-parser');
 var _ = require('underscore');
 
 var app = express();
-var PORT = process.env.PORT || 3001;
+var PORT = process.env.PORT || 3002;
 var todos = [];
 var todoNextId = 1;
 
@@ -47,8 +47,17 @@ app.post('/todos', function (req, res) {
 	res.json(body);
 });
 
+app.delete('/todos/:id', function (req, res) {
+	var todoId = parseInt(req.params.id, 10);
+	var matchedTodo = _.findWhere(todos, {id: todoId});
 
-
+	if (matchedTodo) {
+		todos = _.without(todos, matchedTodo);
+		res.json(matchedTodo);
+	} else {
+		res.status(404).json({'error': 'no todo found with that id'});
+	}
+});
 
 
 app.listen(PORT, function () {
