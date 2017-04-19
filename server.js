@@ -30,7 +30,6 @@ app.get('/todos', function (req, res) {
 			return todo.description.toLowerCase().indexOf(queryParams.q.toLowerCase()) > -1;
 		}); 
 
-
 	res.json(filteredTodos);
 });
 
@@ -108,4 +107,7 @@ app.put('/todos/:id', function (req, res) {
 app.listen(PORT, function () {
 	console.log('Express listening on port ' + PORT + '!')
 });
+
+
+
 
